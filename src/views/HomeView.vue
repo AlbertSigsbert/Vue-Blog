@@ -1,40 +1,27 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <h2>Refs</h2>
-    <p ref="p">My name is {{ name }} and my age is {{ age }}</p>
-    <button @click="handleClick">Click Me</button>
-    <button @click="age++">Add Age By 1</button>
-    <input type="text" v-model="name" />
-
-    <h2>Reactive</h2>
-    <p>Ninja one is {{ninjaOne.name}} and is {{ninjaOne.age}} years old</p>
-    <button @click="updateNinja">Update Ninja</button>
+    <h1>Names</h1>
+    <input type="text" placeholder="Search a name" v-model="search">
+    <p>Searched text - {{search}}</p>
+   <div v-for="name in matchedNames" :key="name">{{name}}</div>
   </div>
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, computed } from "vue";
 
 export default {
   name: "HomeView",
   setup() {
-    let name = ref("John");
-    let age = ref(25);
+    const search = ref('')
+    const names = ref(['Ava', 'Liam', 'Emma', 'Noah', 'Olivia', 'William', 'Sophia', 'Elijah', 'Isabella', 'James']);
+    
+    //Computed properties
+    const matchedNames = computed(() => {
+      return names.value.filter(name => name.includes(search.value))
+    })
 
-    const ninjaOne = reactive({ name: "Shinsuke", age: 25 });
-    const p = ref(null);
-
-    const handleClick = () => {
-      // p.value.textContent = "Hello,World";
-      name.value = "Mario";
-    };
-    const updateNinja = () => {
-      // p.value.textContent = "Hello,World";
-      ninjaOne.name = "Matsura";
-    };
-
-    return { name, age, handleClick, p, updateNinja, ninjaOne };
+    return { names, search, matchedNames};
   },
 };
 </script>
