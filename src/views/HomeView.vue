@@ -1,18 +1,21 @@
 <template>
   <div class="home">
     <h1>Blogs</h1>
-    <PostList :posts="posts"/>
+    <PostList v-if="showPosts" :posts="posts" />
+    <button @click="showPosts = !showPosts">Toggle Posts</button>
+    <button @click="posts.pop()">Delete Post</button>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
-import PostList from '@/components/PostList.vue';
+import PostList from "@/components/PostList.vue";
 
 export default {
   name: "HomeView",
   components: { PostList },
   setup() {
+    const showPosts = ref(true);
     const posts = ref([
       {
         id: 1,
@@ -41,7 +44,7 @@ export default {
       },
     ]);
 
-    return { posts };
+    return { posts, showPosts };
   },
 };
 </script>
