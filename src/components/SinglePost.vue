@@ -1,7 +1,10 @@
 <template>
-  <div class="post">
-    <h2>{{ post.title }}</h2>
+  <div class="blog-post">
+    <router-link :to="{ name: 'details', params:{id:post.id} }"> 
+      <h2>{{ post.title }}</h2>
+    </router-link>
     <p>{{ snippet }}</p>
+    <span v-for="tag in post.tags" :key="tag" class="tag">#{{ tag }}</span>
   </div>
 </template>
 
@@ -21,4 +24,5 @@ export default {
 </script>
 
 <style>
+
 </style>
